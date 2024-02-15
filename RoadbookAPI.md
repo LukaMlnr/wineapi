@@ -1,3 +1,9 @@
+Sous Windows, utilisez la commande suivante :
+
+```bash 
+set DEBUG=myapp:* & npm start 
+```
+
 # Roadbook API viticole 
 
 ### 1. Définir les Exigences Fonctionnelles
