@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine API Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .response-container {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .link-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .link-container a {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Wine API Interface</h1>
+        <div class="form-group">
+            <label for="wineName">Name:</label>
+            <input type="text" id="wineName" name="wineName">
+        </div>
+        <div class="form-group">
+            <label for="wineVintage">Vintage:</label>
+            <input type="text" id="wineVintage" name="wineVintage">
+        </div>
+        <div class="form-group">
+            <label for="wineQuantity">Quantity:</label>
+            <input type="text" id="wineQuantity" name="wineQuantity">
+        </div>
+        <div class="form-group">
+            <label for="winePrice">Price:</label>
+            <input type="text" id="winePrice" name="winePrice">
+        </div>
+        <button onclick="addWine()">Add Wine</button>
+        <div class="response-container" id="responseContainer"></div>
+        <div class="link-container">
+            <a href="/wines">View Wines</a>
+        </div>
+    </div>
+
+    <script>
+        function addWine() {
+            const wineName = document.getElementById('wineName').value;
+            const wineVintage = document.getElementById('wineVintage').value;
+            const wineQuantity = document.getElementById('wineQuantity').value;
+            const winePrice = document.getElementById('winePrice').value;
+
+            fetch('/api/wines', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: wineName,
+                    vintage: wineVintage,
+                    quantity: wineQuantity,
+                    price: winePrice
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('responseContainer').innerHTML = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
