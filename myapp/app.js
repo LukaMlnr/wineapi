@@ -7,6 +7,16 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+const { Sequelize } = require('sequelize');
+const parcelleModel = require('./models/Parcelle');
+
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: './db/database.sqlite'
+});
+
+const Parcelle = parcelleModel(sequelize);
+
 var app = express();
 
 // view engine setup
