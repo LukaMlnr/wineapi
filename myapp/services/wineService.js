@@ -1,5 +1,5 @@
 // wineService.js
-const Wine = require('../models/Wine.js');
+const {Wine} = require('../models/');
 
 class WineService {
   async getAllWines() {

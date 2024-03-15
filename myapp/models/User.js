@@ -1,32 +1,24 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../config/sequelize'); 
-
-// Définir le modèle d'utilisateur
-const User = sequelize.define('User', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  username: {
-    type: DataTypes.STRING(255), // Utilisation de VARCHAR(255) pour le nom d'utilisateur
-    allowNull: false,
-    unique: true
-  },
-  password: {
-    type: DataTypes.STRING(255), // Utilisation de VARCHAR(255) pour le mot de passe
-    allowNull: false
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') // Utilisation de CURRENT_TIMESTAMP pour la valeur par défaut
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') // Utilisation de CURRENT_TIMESTAMP pour la valeur par défaut
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
   }
-});
-
-module.exports = User;
+  User.init({
+    username: DataTypes.STRING,
+    password: DataTypes.STRING,
+  }, {
+    sequelize,
+    modelName: 'User',
+  });
+  return User;
+};

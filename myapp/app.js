@@ -2,11 +2,12 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const passport = require('./config/passport'); // Importez la configuration de Passport.js
+const passport = require('./config/passport'); 
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const wineRouter = require('./routes/wineRoutes'); // Ajout de wineRoutes
+const wineRouter = require('./routes/wineRoutes');
+const parcelleRouter = require('./routes/parcelleRoutes')
 
 const app = express();
 
@@ -28,9 +29,9 @@ app.use(passport.initialize()); // Initialisez Passport.js middleware
 const protectedRoutes = require('./routes/protectedRoutes');
 app.use('/api', passport.authenticate('jwt', { session: false }), protectedRoutes);
 
-app.use('/api', wineRouter); // Utilisation des routes de gestion des vins sous /api
+app.use('/api', wineRouter); // Utilisation des routes sous /api
+app.use('/api', parcelleRouter);
 
-// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   res.status(404).json({ message: 'Not found' }); // Réponse JSON pour les routes non trouvées
 });

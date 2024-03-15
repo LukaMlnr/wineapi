@@ -1,0 +1,177 @@
+openapi: 3.0.0
+info:
+  title: Wine API
+  description: API pour gérer les vins et les parcelles viticoles
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+    description: Serveur de développement
+paths:
+  /wines:
+    get:
+      summary: Récupérer tous les vins
+      responses:
+        '200':
+          description: Succès de la récupération des vins
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Wine'
+    post:
+      summary: Créer un nouveau vin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewWine'
+      responses:
+        '201':
+          description: Le vin a été créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wine'
+  /parcelles:
+    get:
+      summary: Récupérer toutes les parcelles
+      responses:
+        '200':
+          description: Succès de la récupération des parcelles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Parcelle'
+    post:
+      summary: Créer une nouvelle parcelle
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewParcelle'
+      responses:
+        '201':
+          description: La parcelle a été créée avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Parcelle'
+components:
+  schemas:
+    Wine:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: L'identifiant unique du vin
+        name:
+          type: string
+          description: Le nom du vin
+        vintage:
+          type: integer
+          description: L'année du millésime du vin
+        quantity:
+          type: integer
+          description: La quantité de bouteilles de ce vin disponible
+        price:
+          type: number
+          format: float
+          description: Le prix du vin par bouteille
+      required:
+        - name
+        - vintage
+        - quantity
+        - price
+    NewWine:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Le nom du vin
+        vintage:
+          type: integer
+          description: L'année du millésime du vin
+        quantity:
+          type: integer
+          description: La quantité de bouteilles de ce vin disponible
+        price:
+          type: number
+          format: float
+          description: Le prix du vin par bouteille
+      required:
+        - name
+        - vintage
+        - quantity
+        - price
+    Parcelle:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: L'identifiant unique de la parcelle
+        nom:
+          type: string
+          description: Le nom de la parcelle
+        superficie:
+          type: number
+          format: float
+          description: La superficie de la parcelle en hectares
+        localisation:
+          type: string
+          description: La localisation de la parcelle
+        exposition:
+          type: string
+          description: L'exposition de la parcelle au soleil
+        typeSol:
+          type: string
+          description: Le type de sol de la parcelle
+        anneePlantation:
+          type: integer
+          description: L'année de plantation de la parcelle
+        cepages:
+          type: string
+          description: Les cépages cultivés dans la parcelle
+        notes:
+          type: string
+          description: Des notes sur la parcelle
+      required:
+        - nom
+        - superficie
+        - localisation
+    NewParcelle:
+      type: object
+      properties:
+        nom:
+          type: string
+          description: Le nom de la parcelle
+        superficie:
+          type: number
+          format: float
+          description: La superficie de la parcelle en hectares
+        localisation:
+          type: string
+          description: La localisation de la parcelle
+        exposition:
+          type: string
+          description: L'exposition de la parcelle au soleil
+        typeSol:
+          type: string
+          description: Le type de sol de la parcelle
+        anneePlantation:
+          type: integer
+          description: L'année de plantation de la parcelle
+        cepages:
+          type: string
+          description: Les cépages cultivés dans la parcelle
+        notes:
+          type: string
+          description: Des notes sur la parcelle
+      required:
+        - nom
+        - superficie
+        - localisation
