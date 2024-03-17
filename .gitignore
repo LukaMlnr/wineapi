@@ -16,5 +16,4 @@ dist/
 .idea/
 
 # Dependency lock files
-package-lock.json
 yarn.lock
